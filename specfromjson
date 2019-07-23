@@ -1,0 +1,16 @@
+def specfromjson(sn_name, idx):
+    file = sn_name+'.json'
+
+    df = pd.read_json(file)
+
+    time = df[sn_name]['spectra'][idx]['time']
+    lst = df[sn_name]['spectra'][idx]['data']
+
+    wave = [float(item[0]) for item in lst]
+    flux = [float(item[1]) for item in lst]
+
+    with open(sn_name+str(idx)+'.txt', 'w') as f:
+        for f1, f2 in zip(wave, flux):
+            print(f1, f2, file=f)
+            
+    return time
